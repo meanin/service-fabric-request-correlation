@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Fabric;
 using System.IO;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.ServiceFabric;
+using Microsoft.ApplicationInsights.ServiceFabric.Module;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
@@ -35,10 +38,14 @@ namespace CorrelationId.Api
                                     .UseKestrel()
                                     .ConfigureServices(
                                         services => services
-                                            .AddSingleton<StatelessServiceContext>(serviceContext))
+                                            .AddSingleton<StatelessServiceContext>(serviceContext)
+                                            .AddSingleton<ITelemetryModule>(new ServiceRemotingDependencyTrackingTelemetryModule())
+                                            .AddSingleton<ITelemetryModule>(new ServiceRemotingRequestTrackingTelemetryModule())
+                                            .AddSingleton<ITelemetryInitializer>((serviceProvider) => FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(serviceContext)))
                                     .UseContentRoot(Directory.GetCurrentDirectory())
                                     .UseStartup<Startup>()
                                     .UseServiceFabricIntegration(listener, ServiceFabricIntegrationOptions.None)
+                                    .UseApplicationInsights()
                                     .UseUrls(url)
                                     .Build();
                     }))

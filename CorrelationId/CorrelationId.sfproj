@@ -33,6 +33,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CorrelationId.Api\CorrelationId.Api.csproj" />
+    <ProjectReference Include="..\CorrelationId.StatelessService1\CorrelationId.StatelessService1.csproj" />
+    <ProjectReference Include="..\CorrelationId.StatelessService2\CorrelationId.StatelessService2.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

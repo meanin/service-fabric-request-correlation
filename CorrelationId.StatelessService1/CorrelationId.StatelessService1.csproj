@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+    <ServerGarbageCollection>True</ServerGarbageCollection>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.ServiceFabric.Native" Version="2.2.1" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="3.3.624" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CorrelationId.Contract\CorrelationId.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
