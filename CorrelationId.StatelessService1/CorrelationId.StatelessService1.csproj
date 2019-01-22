@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.ServiceFabric.Native" Version="2.2.1" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.ServiceFabric.Native" Version="2.2.2" />
     <PackageReference Include="Microsoft.ServiceFabric.Services" Version="3.3.624" />
   </ItemGroup>
 
