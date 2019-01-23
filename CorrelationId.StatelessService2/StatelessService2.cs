@@ -10,8 +10,8 @@ namespace CorrelationId.StatelessService2
 {
     internal sealed class StatelessService2 : AiTracedStatelessService, IService2
     {
-        public StatelessService2(StatelessServiceContext context)
-            : base(context)
+        public StatelessService2(StatelessServiceContext context, string instrumentationKey)
+            : base(context, instrumentationKey)
         { }
 
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()

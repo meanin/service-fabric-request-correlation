@@ -12,8 +12,9 @@ namespace CorrelationId.StatelessService1
         {
             try
             {
+                var instrumentationKey = "58cc30ca-ead8-4b8d-9416-079cd9975b61";
                 ServiceRuntime.RegisterServiceAsync("CorrelationId.StatelessService1Type",
-                    context => new StatelessService1(context, new RemotingProxy().Create<IService2>(
+                    context => new StatelessService1(context, instrumentationKey, new RemotingProxy().Create<IService2>(
                         new Uri("fabric:/CorrelationId/CorrelationId.StatelessService2")))).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(StatelessService1).Name);

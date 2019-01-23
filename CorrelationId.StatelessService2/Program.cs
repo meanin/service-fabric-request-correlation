@@ -11,8 +11,9 @@ namespace CorrelationId.StatelessService2
         {
             try
             {
+                var instrumentationKey = "58cc30ca-ead8-4b8d-9416-079cd9975b61";
                 ServiceRuntime.RegisterServiceAsync("CorrelationId.StatelessService2Type",
-                    context => new StatelessService2(context)).GetAwaiter().GetResult();
+                    context => new StatelessService2(context, instrumentationKey)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(StatelessService2).Name);
                 Thread.Sleep(Timeout.Infinite);

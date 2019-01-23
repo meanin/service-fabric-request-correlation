@@ -9,14 +9,9 @@ namespace CorrelationId.Contract
 {
     public abstract class AiTracedStatelessService : StatelessService
     {
-        private readonly DependencyTrackingTelemetryModule _dependencyTrackingTelemetryModule;
-        private readonly ServiceRemotingRequestTrackingTelemetryModule _serviceRemotingRequestTrackingTelemetryModule;
-        private readonly ServiceRemotingDependencyTrackingTelemetryModule _serviceRemotingDependencyTrackingTelemetryModule;
-
-        protected AiTracedStatelessService(StatelessServiceContext serviceContext) 
+        protected AiTracedStatelessService(StatelessServiceContext serviceContext, string instrumentationKey) 
             : base(serviceContext)
         {
-            var instrumentationKey = "58cc30ca-ead8-4b8d-9416-079cd9975b61";
             TelemetryConfiguration.Active.TelemetryInitializers.Add(
                 FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(Context)
             );
@@ -24,12 +19,9 @@ namespace CorrelationId.Contract
             TelemetryConfiguration.Active.TelemetryInitializers.Add(new OperationCorrelationTelemetryInitializer());
             TelemetryConfiguration.Active.TelemetryInitializers.Add(new HttpDependenciesParsingTelemetryInitializer());
 
-            _dependencyTrackingTelemetryModule = new DependencyTrackingTelemetryModule();
-            _dependencyTrackingTelemetryModule.Initialize(TelemetryConfiguration.Active);
-            _serviceRemotingRequestTrackingTelemetryModule = new ServiceRemotingRequestTrackingTelemetryModule();
-            _serviceRemotingRequestTrackingTelemetryModule.Initialize(TelemetryConfiguration.Active);
-            _serviceRemotingDependencyTrackingTelemetryModule = new ServiceRemotingDependencyTrackingTelemetryModule();
-            _serviceRemotingDependencyTrackingTelemetryModule.Initialize(TelemetryConfiguration.Active);
+            new DependencyTrackingTelemetryModule().Initialize(TelemetryConfiguration.Active);
+            new ServiceRemotingRequestTrackingTelemetryModule().Initialize(TelemetryConfiguration.Active);
+            new ServiceRemotingDependencyTrackingTelemetryModule().Initialize(TelemetryConfiguration.Active);
         }
     }
 }

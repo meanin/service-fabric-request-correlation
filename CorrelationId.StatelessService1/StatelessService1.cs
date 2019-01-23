@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using System.Fabric;
 using System.Threading.Tasks;
 using CorrelationId.Contract;
-using Microsoft.ApplicationInsights.DependencyCollector;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.ServiceFabric;
-using Microsoft.ApplicationInsights.ServiceFabric.Module;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
-using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace CorrelationId.StatelessService1
 {
@@ -17,8 +12,11 @@ namespace CorrelationId.StatelessService1
     {
         private readonly IService2 _service2;
 
-        public StatelessService1(StatelessServiceContext context, IService2 service2)
-            : base(context)
+        public StatelessService1(
+            StatelessServiceContext context, 
+            string instrumentationKey, 
+            IService2 service2)
+            : base(context, instrumentationKey)
         {
             _service2 = service2;
         }
